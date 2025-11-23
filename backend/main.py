@@ -76,6 +76,10 @@ async def generate_research(request: ResearchRequest):
         # 2. Search web (filtered)
         print(f"Searching web for: {request.query}")
         web_results = search_agent.search(request.query, domains=request.focus_domains)
+        print("DEBUG: Retrieved Web Results:")
+        for r in web_results:
+            print(f" - {r.get('title')} ({r.get('href')})")
+            
         web_context_str = "\n".join([f"- {r['title']}: {r['body']} ({r['href']})" for r in web_results])
         
         # 3. Synthesize with LLM
@@ -92,9 +96,11 @@ async def generate_research(request: ResearchRequest):
         {web_context_str}
         
         Instructions:
-        - Synthesize the information from both local and web sources.
-        - Prioritize the local knowledge base but supplement with web findings.
-        - Clearly cite sources (e.g., [Local Doc], [McKinsey], [Arxiv]).
+        - You are a senior research analyst writing a comprehensive report.
+        - Synthesize information from the provided sources.
+        - CRITICAL: You MUST cite your sources inline (e.g., [McKinsey], [Arxiv]).
+        - If Arxiv papers are provided in the context, you MUST include them in your analysis and citations.
+        - Prioritize academic/technical depth from Arxiv and industry insights from McKinsey/Gartner.
         - Structure the article with clear headings.
         """
         

@@ -1,4 +1,4 @@
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 from typing import List, Dict
 
 class SearchAgent:
@@ -29,15 +29,35 @@ class SearchAgent:
         # Better approach: Iterate through groups of domains or just add "site:..." 
         # Let's try the site: operator with OR.
         
-        site_query = " OR ".join([f"site:{d}" for d in target_domains])
-        full_query = f"{query} ({site_query})"
+        # Strategy: 
+        # 1. General high-credibility search (excluding arxiv to save space)
+        # 2. Dedicated Arxiv search to ensure papers are found
+        
+        general_domains = [d for d in target_domains if "arxiv" not in d]
+        site_query = " OR ".join([f"site:{d}" for d in general_domains])
+        general_full_query = f"{query} ({site_query})"
+        
+        arxiv_full_query = f"{query} site:arxiv.org"
+        
+        print(f"DEBUG: General query: {general_full_query}")
+        print(f"DEBUG: Arxiv query: {arxiv_full_query}")
         
         results = []
         try:
-            # DDGS text search
-            ddg_results = self.ddgs.text(full_query, max_results=max_results)
-            if ddg_results:
-                results = ddg_results
+            # 1. General Search
+            general_results = self.ddgs.text(general_full_query, max_results=3)
+            if general_results:
+                results.extend(general_results)
+            else:
+                 # Fallback for general
+                 print("DEBUG: General search returned no results. Trying fallback.")
+                 results.extend(self.ddgs.text(query, max_results=3))
+
+            # 2. Arxiv Search
+            arxiv_results = self.ddgs.text(arxiv_full_query, max_results=2)
+            if arxiv_results:
+                results.extend(arxiv_results)
+                
         except Exception as e:
             print(f"Search error: {e}")
             
