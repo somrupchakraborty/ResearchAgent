@@ -30,8 +30,7 @@ ollama pull mistral
 # Start Backend
 echo "Starting Backend..."
 cd backend
-source venv/bin/activate
-uvicorn main:app --host 0.0.0.0 --port 8000 &
+/opt/miniconda3/bin/python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload &
 BACKEND_PID=$!
 cd ..
 

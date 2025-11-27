@@ -1,0 +1,45 @@
+[
+  {
+    "id": "ed191aec-bfdf-49ec-8e27-ac034315146c",
+    "name": "AI Cost Optimization Strategies",
+    "description": "The report discusses strategies to optimize costs in AI, focusing on direct and operational cost levers.",
+    "keywords": [
+      "AI",
+      "cost optimization",
+      "strategies",
+      "tokens",
+      "model selection",
+      "data"
+    ],
+    "status": "active",
+    "schedule": "weekly"
+  },
+  {
+    "id": "8ed51672-c877-4743-9d1b-1384e736e521",
+    "name": "Model Selection and Efficiency",
+    "description": "The report highlights the importance of model selection, number of models, and efficient processing design in cost optimization.",
+    "keywords": [
+      "AI",
+      "models",
+      "optimization",
+      "model selection",
+      "processing design"
+    ],
+    "status": "active",
+    "schedule": "weekly"
+  },
+  {
+    "id": "9b1bd3cb-f792-4afd-b4dd-4dab20dbcd7f",
+    "name": "Data Management in AI Costs",
+    "description": "The report emphasizes the significant role of data management in controlling costs associated with AI, stating that 20% of IT budget goes to data.",
+    "keywords": [
+      "AI",
+      "data",
+      "management",
+      "costs",
+      "IT budget"
+    ],
+    "status": "draft",
+    "schedule": "weekly"
+  }
+]
